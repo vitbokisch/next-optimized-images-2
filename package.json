@@ -1,6 +1,6 @@
 {
-  "name": "next-optimized-images",
-  "version": "2.6.2",
+  "name": "@vitbokisch/next-optimized-images",
+  "version": "0.0.1",
   "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
   "module": "lib/next-optimized-images.module.js",
   "files": [
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cyrilwanner/next-optimized-images.git"
+    "url": "git+https://github.com/vitbokisch/next-optimized-images.git"
   },
   "keywords": [
     "nextjs",
@@ -27,11 +27,14 @@
     "optimized-images"
   ],
   "author": "Cyril Wanner <info@cyr.li>",
+  "maintainers": [
+    "Vit Bokisch <vit@bokisch.cz>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cyrilwanner/next-optimized-images/issues"
+    "url": "https://github.com/vitbokisch/next-optimized-images/issues"
   },
-  "homepage": "https://github.com/cyrilwanner/next-optimized-images#readme",
+  "homepage": "https://github.com/vitbokisch/next-optimized-images#readme",
   "dependencies": {
     "chalk": "^2.4.2",
     "figures": "^3.0.0",
