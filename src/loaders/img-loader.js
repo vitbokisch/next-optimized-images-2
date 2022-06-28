@@ -20,6 +20,7 @@ const requireImageminPlugin = (plugin, nextConfig) => {
   }
 
   // return require(moduleName)(nextConfig[plugin.replace('imagemin-', '')] || {})
+  console.log(moduleName)
 
   /* eslint global-require: "off", import/no-dynamic-require: "off" */
   return require(moduleName)(nextConfig[plugin.replace('imagemin-', '')] || {})
