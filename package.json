@@ -1,6 +1,6 @@
 {
   "name": "@vitbokisch/next-optimized-images",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
   "main": "lib/next-optimized-images.js",
   "module": "lib/next-optimized-images.module.js",
