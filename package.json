@@ -1,17 +1,15 @@
 {
   "name": "@vitbokisch/next-optimized-images",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Automatically optimize images used in next.js projects (jpeg, png, gif, svg).",
   "type": "module",
-  "module": "./src/index.mjs",
+  "main": "lib/next-optimized-images.module.js",
   "exports": "./src/index.mjs",
-  "files": [
-    "src"
-  ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
+    "build": "yarn vl_build",
     "lint": "eslint lib",
     "lint:fix": "eslint --fix lib",
     "test": "jest --coverage",
