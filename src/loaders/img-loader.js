@@ -13,7 +13,7 @@ const require = createRequire(import.meta.url)
  * @param {*} nextConfig - next.js configuration
  * @return {function}
  */
-const requireImageminPlugin = (plugin, nextConfig) => {
+const requireImageminPlugin = async (plugin, nextConfig) => {
   let moduleName = plugin
 
   if (nextConfig.overwriteImageLoaderPaths) {
@@ -22,11 +22,9 @@ const requireImageminPlugin = (plugin, nextConfig) => {
     })
   }
 
-  const result = require(moduleName)(
-    nextConfig[plugin.replace('imagemin-', '')] || {}
-  )
+  const result = await import(moduleName)
 
-  return result
+  return result.default(nextConfig[plugin.replace('imagemin-', '')] || {})
 }
 
 /**
@@ -37,7 +35,7 @@ const requireImageminPlugin = (plugin, nextConfig) => {
  * @param {boolean} optimize - if images should get optimized
  * @return {object}
  */
-const getImgLoaderOptions = (nextConfig, detectedLoaders, optimize) => {
+const getImgLoaderOptions = async (nextConfig, detectedLoaders, optimize) => {
   if (!optimize) {
     return {
       plugins: [],
@@ -47,19 +45,19 @@ const getImgLoaderOptions = (nextConfig, detectedLoaders, optimize) => {
   return {
     plugins: [
       detectedLoaders.jpeg
-        ? requireImageminPlugin(detectedLoaders.jpeg, nextConfig)
+        ? await requireImageminPlugin(detectedLoaders.jpeg, nextConfig)
         : undefined,
 
       detectedLoaders.png
-        ? requireImageminPlugin(detectedLoaders.png, nextConfig)
+        ? await requireImageminPlugin(detectedLoaders.png, nextConfig)
         : undefined,
 
       detectedLoaders.svg
-        ? requireImageminPlugin(detectedLoaders.svg, nextConfig)
+        ? await requireImageminPlugin(detectedLoaders.svg, nextConfig)
         : undefined,
 
       detectedLoaders.gif
-        ? requireImageminPlugin(detectedLoaders.gif, nextConfig)
+        ? await requireImageminPlugin(detectedLoaders.gif, nextConfig)
         : undefined,
     ].filter(Boolean),
   }
