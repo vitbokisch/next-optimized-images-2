@@ -1,7 +1,10 @@
-import { applyImgLoader } from './img-loader'
-import { applyWebpLoader } from './webp-loader'
-import { applyResponsiveLoader } from './responsive-loader'
-import { applyFileLoader } from './file-loader'
+import { createRequire } from 'module'
+import { applyImgLoader } from './img-loader.js'
+import { applyWebpLoader } from './webp-loader.js'
+import { applyResponsiveLoader } from './responsive-loader.js'
+import { applyFileLoader } from './file-loader.js'
+
+const require = createRequire(import.meta.url)
 
 /**
  * Checks if a node module is installed in the current context

@@ -1,5 +1,5 @@
 import path from 'path'
-import { getFileLoaderOptions } from './file-loader'
+import { getFileLoaderOptions } from './file-loader.js'
 
 /**
  * Build options for the webpack responsive loader

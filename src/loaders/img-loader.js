@@ -1,7 +1,10 @@
-import { getResourceQueries } from '../resource-queries'
-import { getWebpResourceQuery } from './webp-loader'
-import { getUrlLoaderOptions } from './url-loader'
-import { getSvgSpriteLoaderResourceQuery } from './svg-sprite-loader'
+import { createRequire } from 'module'
+import { getResourceQueries } from './resource-queries.js'
+import { getWebpResourceQuery } from './webp-loader.js'
+import { getUrlLoaderOptions } from './url-loader.js'
+import { getSvgSpriteLoaderResourceQuery } from './svg-sprite-loader/index.js'
+
+const require = createRequire(import.meta.url)
 
 /**
  * Requires an imagemin plugin and configures it
@@ -19,11 +22,11 @@ const requireImageminPlugin = (plugin, nextConfig) => {
     })
   }
 
-  // return require(moduleName)(nextConfig[plugin.replace('imagemin-', '')] || {})
-  console.log(moduleName)
+  const result = require(moduleName)(
+    nextConfig[plugin.replace('imagemin-', '')] || {}
+  )
 
-  /* eslint global-require: "off", import/no-dynamic-require: "off" */
-  return require(moduleName)(nextConfig[plugin.replace('imagemin-', '')] || {})
+  return result
 }
 
 /**

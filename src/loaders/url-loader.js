@@ -1,4 +1,4 @@
-import { getFileLoaderOptions, getFileLoaderPath } from './file-loader'
+import { getFileLoaderOptions, getFileLoaderPath } from './file-loader.js'
 
 /**
  * Build options for the webpack url loader

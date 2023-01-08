@@ -1,4 +1,7 @@
+import { createRequire } from 'module'
 import path from 'path'
+
+const require = createRequire(import.meta.url)
 
 /**
  * Returns the resource query definition for an svg sprite image

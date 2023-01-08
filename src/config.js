@@ -29,4 +29,4 @@ const getConfig = (nextConfig) => ({
   ...nextConfig,
 })
 
-export { getConfig }
+export default getConfig

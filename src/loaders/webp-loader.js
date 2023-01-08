@@ -1,5 +1,5 @@
-import { getUrlLoaderOptions } from './url-loader'
-import { getResourceQueries } from '../resource-queries'
+import { getUrlLoaderOptions } from './url-loader.js'
+import { getResourceQueries } from './resource-queries.js'
 
 /**
  * Build options for the webp loader

@@ -1,6 +1,8 @@
 import path from 'path'
 import fs from 'fs'
 
+const __filename = import.meta.url
+
 /**
  * Build options for the webpack file loader
  *
@@ -37,7 +39,7 @@ const getFileLoaderOptions = (
  */
 const getFileLoaderPath = () => {
   const absolutePath = path.resolve(
-    __dirname,
+    path.dirname(__filename),
     '..',
     '..',
     'node_modules',
