@@ -4,14 +4,15 @@
   "description": "Automatically optimize images used in Next.js projects (jpeg, png, gif, svg).",
   "type": "module",
   "main": "./src/index.js",
-  "typings": "./typings/index.d.ts",
+  "typings": "lib/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "yarn vl_build",
-    "lint": "eslint lib",
-    "lint:fix": "eslint --fix lib",
+    "prepublish": "yarn build",
+    "build": "tsc",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
