@@ -1,10 +1,10 @@
-import { getConfig } from './config'
+import getConfig from './config.js'
 import {
   detectLoaders,
   getNumOptimizationLoadersInstalled,
   appendLoaders,
-} from './loaders'
-import { showWarning } from './migrater'
+} from './loaders/index.js'
+import { showWarning } from './migrater.js'
 
 /**
  * Configure webpack and next.js to handle and optimize images with this plugin.

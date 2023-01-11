@@ -21,7 +21,9 @@ const getConfig = (nextConfig) => ({
     interlaced: true,
     optimizationLevel: 3,
   },
-  svgo: {},
+  svgo: {
+    plugins: [{ name: 'removeViewBox', active: false }],
+  },
   svgSpriteLoader: {
     symbolId: '[name]-[hash:8]',
   },
@@ -29,4 +31,4 @@ const getConfig = (nextConfig) => ({
   ...nextConfig,
 })
 
-export { getConfig }
+export default getConfig

@@ -1,7 +1,10 @@
-import { getResourceQueries } from '../resource-queries'
-import { getWebpResourceQuery } from './webp-loader'
-import { getUrlLoaderOptions } from './url-loader'
-import { getSvgSpriteLoaderResourceQuery } from './svg-sprite-loader'
+import { createRequire } from 'module'
+import { getResourceQueries } from './resource-queries.js'
+import { getWebpResourceQuery } from './webp-loader.js'
+import { getUrlLoaderOptions } from './url-loader.js'
+import { getSvgSpriteLoaderResourceQuery } from './svg-sprite-loader/index.js'
+
+const require = createRequire(import.meta.url)
 
 /**
  * Requires an imagemin plugin and configures it
@@ -10,7 +13,7 @@ import { getSvgSpriteLoaderResourceQuery } from './svg-sprite-loader'
  * @param {*} nextConfig - next.js configuration
  * @return {function}
  */
-const requireImageminPlugin = (plugin, nextConfig) => {
+const requireImageminPlugin = async (plugin, nextConfig) => {
   let moduleName = plugin
 
   if (nextConfig.overwriteImageLoaderPaths) {
@@ -19,10 +22,9 @@ const requireImageminPlugin = (plugin, nextConfig) => {
     })
   }
 
-  // return require(moduleName)(nextConfig[plugin.replace('imagemin-', '')] || {})
+  const result = await import(moduleName)
 
-  /* eslint global-require: "off", import/no-dynamic-require: "off" */
-  return require(moduleName)(nextConfig[plugin.replace('imagemin-', '')] || {})
+  return result.default(nextConfig[plugin.replace('imagemin-', '')] || {})
 }
 
 /**
@@ -33,7 +35,7 @@ const requireImageminPlugin = (plugin, nextConfig) => {
  * @param {boolean} optimize - if images should get optimized
  * @return {object}
  */
-const getImgLoaderOptions = (nextConfig, detectedLoaders, optimize) => {
+const getImgLoaderOptions = async (nextConfig, detectedLoaders, optimize) => {
   if (!optimize) {
     return {
       plugins: [],
@@ -43,19 +45,19 @@ const getImgLoaderOptions = (nextConfig, detectedLoaders, optimize) => {
   return {
     plugins: [
       detectedLoaders.jpeg
-        ? requireImageminPlugin(detectedLoaders.jpeg, nextConfig)
+        ? await requireImageminPlugin(detectedLoaders.jpeg, nextConfig)
         : undefined,
 
       detectedLoaders.png
-        ? requireImageminPlugin(detectedLoaders.png, nextConfig)
+        ? await requireImageminPlugin(detectedLoaders.png, nextConfig)
         : undefined,
 
       detectedLoaders.svg
-        ? requireImageminPlugin(detectedLoaders.svg, nextConfig)
+        ? await requireImageminPlugin(detectedLoaders.svg, nextConfig)
         : undefined,
 
       detectedLoaders.gif
-        ? requireImageminPlugin(detectedLoaders.gif, nextConfig)
+        ? await requireImageminPlugin(detectedLoaders.gif, nextConfig)
         : undefined,
     ].filter(Boolean),
   }

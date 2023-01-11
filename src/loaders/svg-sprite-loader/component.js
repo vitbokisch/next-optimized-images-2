@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react'
+import { createElement } from 'react'
 import SpriteSymbol from '$$symbolRequest$$'
 import sprite from '$$spriteRequest$$'
 
@@ -7,7 +7,7 @@ var symbol = new SpriteSymbol($$stringifiedSymbol$$)
 sprite.add(symbol)
 
 var SvgSpriteIcon = function SvgSpriteIcon(props) {
-  return React.createElement(
+  return createElement(
     'svg',
     Object.assign(
       {
@@ -15,7 +15,7 @@ var SvgSpriteIcon = function SvgSpriteIcon(props) {
       },
       props
     ),
-    React.createElement('use', {
+    createElement('use', {
       xlinkHref: '#' + symbol.id,
     })
   )

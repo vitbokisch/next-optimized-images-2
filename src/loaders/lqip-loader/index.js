@@ -1,4 +1,4 @@
-import { getFileLoaderOptions } from '../file-loader'
+import { getFileLoaderOptions } from '../file-loader.js'
 
 /**
  * Build options for the webpack lqip loader

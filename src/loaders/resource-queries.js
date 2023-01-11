@@ -1,8 +1,11 @@
-import { getUrlLoaderOptions } from './loaders/url-loader'
-import { getFileLoaderOptions, getFileLoaderPath } from './loaders/file-loader'
-import { getLqipLoaderOptions } from './loaders/lqip-loader'
-import { getResponsiveLoaderOptions } from './loaders/responsive-loader'
-import { getImageTraceLoaderOptions } from './loaders/image-trace-loader'
+import { createRequire } from 'module'
+import { getUrlLoaderOptions } from './url-loader.js'
+import { getFileLoaderOptions, getFileLoaderPath } from './file-loader.js'
+import { getLqipLoaderOptions } from './lqip-loader/index.js'
+import { getResponsiveLoaderOptions } from './responsive-loader.js'
+import { getImageTraceLoaderOptions } from './image-trace-loader.js'
+
+const require = createRequire(import.meta.url)
 
 /**
  * Configure the common resource queries
@@ -32,10 +35,7 @@ const queries = [
   // ?include: include the image directly, no data uri or external file
   {
     test: 'include',
-    loaders: [
-      require.resolve('./loaders/raw-loader/export-loader.js'),
-      'raw-loader',
-    ],
+    loaders: ['raw-loader'],
     optimize: true,
     combinations: ['original'],
   },
@@ -51,7 +51,7 @@ const queries = [
   {
     test: 'lqip(&|$)',
     loaders: [
-      require.resolve('./loaders/lqip-loader/picture-export-loader.js'),
+      require.resolve('./lqip-loader/picture-export-loader.js'),
       'lqip-loader',
       'url-loader',
     ],
@@ -62,7 +62,7 @@ const queries = [
   {
     test: 'lqip-colors',
     loaders: [
-      require.resolve('./loaders/lqip-loader/colors-export-loader.js'),
+      require.resolve('./lqip-loader/colors-export-loader.js'),
       'lqip-loader',
       'url-loader',
     ],

@@ -1,1 +1,3 @@
-module.exports = require('@vitus-labs/tools-lint').eslint
+const { eslint } = require('@vitus-labs/tools-lint')
+
+module.exports = eslint
