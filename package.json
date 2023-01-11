@@ -55,7 +55,6 @@
   },
   "devDependencies": {
     "@vitus-labs/tools-lint": "^0.40.0",
-    "@vitus-labs/tools-rollup": "^0.40.0",
     "@vitus-labs/tools-typescript": "^0.40.0",
     "jest": "^29.3.1",
     "loader-utils": "^3.2.1",
