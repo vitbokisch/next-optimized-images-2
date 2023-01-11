@@ -1,3 +1,3 @@
-import { eslint } from '@vitus-labs/tools-lint'
+const { eslint } = require('@vitus-labs/tools-lint')
 
-export default eslint
+module.exports = eslint
