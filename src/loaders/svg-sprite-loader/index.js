@@ -6,14 +6,14 @@ const require = createRequire(import.meta.url)
 /**
  * Returns the resource query definition for an svg sprite image
  *
- * @param {object} nextConfig - next.js configuration
+ * @param {object} optimizedConfig - next.js configuration
  * @param {object} detectedLoaders - detected loaders
  * @param {object} imgLoaderOptions - img loader options
  * @param {boolean} optimize - if the svg image should get optimized
  * @returns {object}
  */
 const getSvgSpriteLoaderResourceQuery = (
-  nextConfig,
+  optimizedConfig,
   detectedLoaders,
   imgLoaderOptions,
   optimize
@@ -26,7 +26,7 @@ const getSvgSpriteLoaderResourceQuery = (
         runtimeGenerator: require.resolve(
           path.resolve(__dirname, 'svg-runtime-generator.js')
         ),
-        ...(nextConfig.svgSpriteLoader || {}),
+        ...(optimizedConfig.svgSpriteLoader || {}),
       },
     },
   ].concat(

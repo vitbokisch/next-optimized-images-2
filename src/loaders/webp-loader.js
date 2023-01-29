@@ -13,6 +13,7 @@ const getWebpLoaderOptions = ({ webp }) => webp || {}
  * Apply the webp loader to the webpack configuration
  *
  * @param {object} webpackConfig - webpack configuration
+ * @param {object} optimizedConfig - optimized configuration
  * @param {object} nextConfig - next.js configuration
  * @param {boolean} optimize - if images should get optimized
  * @param {boolean} isServer - if the build is for the server
@@ -21,6 +22,7 @@ const getWebpLoaderOptions = ({ webp }) => webp || {}
  */
 const applyWebpLoader = (
   webpackConfig,
+  optimizedConfig,
   nextConfig,
   optimize,
   isServer,
@@ -29,14 +31,14 @@ const applyWebpLoader = (
   const webpLoaders = [
     {
       loader: 'url-loader',
-      options: getUrlLoaderOptions(nextConfig, isServer),
+      options: getUrlLoaderOptions(optimizedConfig, nextConfig, isServer),
     },
   ]
 
   if (optimize) {
     webpLoaders.push({
       loader: 'webp-loader',
-      options: getWebpLoaderOptions(nextConfig),
+      options: getWebpLoaderOptions(optimizedConfig),
     })
   }
 
@@ -45,10 +47,11 @@ const applyWebpLoader = (
     oneOf: [
       // add all resource queries
       ...getResourceQueries(
+        optimizedConfig,
         nextConfig,
         isServer,
         !optimize ? null : 'webp-loader',
-        getWebpLoaderOptions(nextConfig),
+        getWebpLoaderOptions(optimizedConfig),
         detectLoaders
       ),
 
@@ -65,17 +68,22 @@ const applyWebpLoader = (
 /**
  * Returns the resource query definition for converting a jpeg/png image to webp
  *
+ * @param {object} optimizedConfig - optimized configuration
  * @param {object} nextConfig - next.js configuration
  * @param {boolean} isServer - if the build is for the server
  * @returns {object}
  */
-const getWebpResourceQuery = (nextConfig, isServer) => {
-  const urlLoaderOptions = getUrlLoaderOptions(nextConfig, isServer)
+const getWebpResourceQuery = (optimizedConfig, nextConfig, isServer) => {
+  const urlLoaderOptions = getUrlLoaderOptions(
+    optimizedConfig,
+    nextConfig,
+    isServer
+  )
   const imageName =
     urlLoaderOptions.name.indexOf('[ext]') >= 0
       ? urlLoaderOptions.name.replace(
           '[ext]',
-          nextConfig.removeOriginalExtension ? 'webp' : '[ext].webp'
+          optimizedConfig.removeOriginalExtension ? 'webp' : '[ext].webp'
         )
       : `${urlLoaderOptions.name}.webp`
 
@@ -91,7 +99,7 @@ const getWebpResourceQuery = (nextConfig, isServer) => {
       },
       {
         loader: 'webp-loader',
-        options: getWebpLoaderOptions(nextConfig),
+        options: getWebpLoaderOptions(optimizedConfig),
       },
     ],
   }

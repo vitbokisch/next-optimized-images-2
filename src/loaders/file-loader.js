@@ -6,12 +6,14 @@ const __filename = import.meta.url
 /**
  * Build options for the webpack file loader
  *
+ * @param {object} optimizedConfig - optimized configuration
  * @param {object} nextConfig - next.js configuration
  * @param {boolean} isServer - if the build is for the server
  * @returns {object}
  */
 const getFileLoaderOptions = (
-  { assetPrefix, imagesPublicPath, imagesOutputPath, imagesFolder, imagesName },
+  { imagesPublicPath, imagesOutputPath, imagesFolder, imagesName },
+  { assetPrefix },
   isServer
 ) => {
   let publicPath = `/_next/static/${imagesFolder}/`
@@ -59,19 +61,26 @@ const getFileLoaderPath = () => {
  * Apply the file loader to the webpack configuration
  *
  * @param {object} webpackConfig - webpack configuration
+ * @param {object} optimizedConfig - optimized configuration
  * @param {object} nextConfig - next.js configuration
  * @param {boolean} isServer - if the build is for the server
  * @param {RegExp} fileRegex - regex for files to handle
  * @returns {object}
  */
-const applyFileLoader = (webpackConfig, nextConfig, isServer, fileRegex) => {
+const applyFileLoader = (
+  webpackConfig,
+  optimizedConfig,
+  nextConfig,
+  isServer,
+  fileRegex
+) => {
   webpackConfig.module.rules.push({
     test: fileRegex,
     oneOf: [
       {
         use: {
           loader: getFileLoaderPath(),
-          options: getFileLoaderOptions(nextConfig, isServer),
+          options: getFileLoaderOptions(optimizedConfig, nextConfig, isServer),
         },
       },
     ],

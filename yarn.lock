@@ -1343,6 +1343,13 @@
     "@typescript-eslint/types" "5.48.0"
     eslint-visitor-keys "^3.3.0"
 
+"@vitus-labs/rocketstyle@0.65":
+  version "0.65.0"
+  resolved "https://registry.yarnpkg.com/@vitus-labs/rocketstyle/-/rocketstyle-0.65.0.tgz#9d04570ab011df308d1ca0b2f53ff63719b46eab"
+  integrity sha512-xY4e3zZ9SP90nQiL6CgxAFGBAP0TKhdnC18nL1Q/SDSeb9WLqAQ4wXey2P8yfGDXj9D1RxQ7jNfTJbpdz68nRw==
+  dependencies:
+    hoist-non-react-statics "^3.3.2"
+
 "@vitus-labs/tools-lint@^0.40.0":
   version "0.40.0"
   resolved "https://registry.yarnpkg.com/@vitus-labs/tools-lint/-/tools-lint-0.40.0.tgz#155ea23989fc79a0c7d2579fbf33ff43dc488a93"
@@ -3407,6 +3414,13 @@ he@^1.1.1:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
+hoist-non-react-statics@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
+  integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
+  dependencies:
+    react-is "^16.7.0"
+
 hosted-git-info@^2.1.4:
   version "2.8.9"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
@@ -5351,7 +5365,7 @@ raw-loader@^4.0.2:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
 
-react-is@^16.13.1:
+react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==

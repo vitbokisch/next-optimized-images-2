@@ -1,7 +1,7 @@
 /**
  * Build options for the webpack image trace loader
  *
- * @param {object} nextConfig - next.js configuration
+ * @param {object} optimizedConfig - next.js configuration
  * @returns {object}
  */
 const getImageTraceLoaderOptions = ({ imageTrace }) => ({

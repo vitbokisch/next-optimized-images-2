@@ -90,11 +90,11 @@ const detectLoaders = (resolvePath) => {
 /**
  * Checks which image types should by handled by this plugin
  *
- * @param {object} nextConfig - next.js configuration object
+ * @param {object} optimizedConfig - next.js configuration
  * @returns {object}
  */
-const getHandledImageTypes = (nextConfig) => {
-  const { handleImages } = nextConfig
+const getHandledImageTypes = (optimizedConfig) => {
+  const { handleImages } = optimizedConfig
 
   return {
     jpeg: handleImages.indexOf('jpeg') >= 0 || handleImages.indexOf('jpg') >= 0,
@@ -125,6 +125,7 @@ const getNumOptimizationLoadersInstalled = (loaders) =>
  * Appends all loaders to the webpack configuration
  *
  * @param {object} webpackConfig - webpack configuration
+ * @param {object} optimizedConfig - optimized images configuration
  * @param {object} nextConfig - next.js configuration
  * @param {object} detectedLoaders - detected loaders
  * @param {boolean} isServer - if the build is for the server
@@ -133,19 +134,20 @@ const getNumOptimizationLoadersInstalled = (loaders) =>
  */
 const appendLoaders = (
   webpackConfig,
+  optimizedConfig,
   nextConfig,
   detectedLoaders,
   isServer,
   optimize
 ) => {
   let config = webpackConfig
-  const handledImageTypes = getHandledImageTypes(nextConfig)
+  const handledImageTypes = getHandledImageTypes(optimizedConfig)
   let imgLoaderHandledTypes = handledImageTypes
 
   // check if responsive-loader should be the default loader and apply it if so
   if (
-    nextConfig.defaultImageLoader &&
-    nextConfig.defaultImageLoader === 'responsive-loader'
+    optimizedConfig.defaultImageLoader &&
+    optimizedConfig.defaultImageLoader === 'responsive-loader'
   ) {
     // img-loader no longer has to handle jpeg and png images
     imgLoaderHandledTypes = {
@@ -156,6 +158,7 @@ const appendLoaders = (
 
     config = applyResponsiveLoader(
       webpackConfig,
+      optimizedConfig,
       nextConfig,
       isServer,
       detectLoaders
@@ -178,6 +181,7 @@ const appendLoaders = (
   ) {
     config = applyImgLoader(
       webpackConfig,
+      optimizedConfig,
       nextConfig,
       optimize,
       isServer,
@@ -187,6 +191,7 @@ const appendLoaders = (
   } else if (shouldApplyImgLoader) {
     config = applyImgLoader(
       webpackConfig,
+      optimizedConfig,
       nextConfig,
       false,
       isServer,
@@ -199,6 +204,7 @@ const appendLoaders = (
   if (detectedLoaders.webp && handledImageTypes.webp) {
     config = applyWebpLoader(
       webpackConfig,
+      optimizedConfig,
       nextConfig,
       optimize,
       isServer,
@@ -207,6 +213,7 @@ const appendLoaders = (
   } else if (handledImageTypes.webp) {
     config = applyWebpLoader(
       webpackConfig,
+      optimizedConfig,
       nextConfig,
       false,
       isServer,
@@ -216,7 +223,13 @@ const appendLoaders = (
 
   // apply file loader for non optimizable image types
   if (handledImageTypes.ico) {
-    config = applyFileLoader(webpackConfig, nextConfig, isServer, /\.(ico)$/i)
+    config = applyFileLoader(
+      webpackConfig,
+      optimizedConfig,
+      nextConfig,
+      isServer,
+      /\.(ico)$/i
+    )
   }
 
   return config

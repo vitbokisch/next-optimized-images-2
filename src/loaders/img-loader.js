@@ -84,6 +84,7 @@ const getHandledFilesRegex = (handledImageTypes) => {
  * Apply the img loader to the webpack configuration
  *
  * @param {object} webpackConfig - webpack configuration
+ * @param {object} optimizedConfig - optimized configuration
  * @param {object} nextConfig - next.js configuration
  * @param {boolean} optimize - if images should get optimized
  * @param {boolean} isServer - if the build is for the server
@@ -93,6 +94,7 @@ const getHandledFilesRegex = (handledImageTypes) => {
  */
 const applyImgLoader = (
   webpackConfig,
+  optimizedConfig,
   nextConfig,
   optimize,
   isServer,
@@ -110,6 +112,7 @@ const applyImgLoader = (
     oneOf: [
       // add all resource queries
       ...getResourceQueries(
+        optimizedConfig,
         nextConfig,
         isServer,
         optimize ? 'img-loader' : null,
@@ -119,13 +122,13 @@ const applyImgLoader = (
 
       // ?webp: convert an image to webp
       handledImageTypes.webp
-        ? getWebpResourceQuery(nextConfig, isServer)
+        ? getWebpResourceQuery(optimizedConfig, nextConfig, isServer)
         : undefined,
 
       // ?sprite: add icon to sprite
       detectedLoaders.svgSprite
         ? getSvgSpriteLoaderResourceQuery(
-            nextConfig,
+            optimizedConfig,
             detectedLoaders,
             imgLoaderOptions,
             optimize
@@ -137,7 +140,7 @@ const applyImgLoader = (
         use: [
           {
             loader: 'url-loader',
-            options: getUrlLoaderOptions(nextConfig, isServer),
+            options: getUrlLoaderOptions(optimizedConfig, nextConfig, isServer),
           },
           {
             loader: 'img-loader',

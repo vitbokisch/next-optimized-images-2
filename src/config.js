@@ -1,11 +1,11 @@
 /**
- * Enriches the next.js configuration object with default config values for
+ * Enriches the next-optimized-images configuration object with default config values for
  * next-optimized-iamges and returns it
  *
- * @param {object} nextConfig - next.js configuration object
+ * @param {object} optimizedConfig - next-optimized-images configuration object
  * @returns {object} enriched config
  */
-const getConfig = (nextConfig) => ({
+const getConfig = (optimizedConfig) => ({
   optimizeImages: true,
   optimizeImagesInDev: false,
   handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
@@ -28,7 +28,7 @@ const getConfig = (nextConfig) => ({
     symbolId: '[name]-[hash:8]',
   },
   webp: {},
-  ...nextConfig,
+  ...optimizedConfig,
 })
 
 export default getConfig

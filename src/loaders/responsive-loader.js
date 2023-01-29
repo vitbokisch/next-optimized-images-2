@@ -4,12 +4,14 @@ import { getFileLoaderOptions } from './file-loader.js'
 /**
  * Build options for the webpack responsive loader
  *
+ * @param {object} optimizedConfig - optimized configuration
  * @param {object} nextConfig - next.js configuration
  * @param {object} detectedLoaders - all detected and installed loaders
  * @returns {object}
  */
 const getResponsiveLoaderOptions = (
-  { responsive, ...nextConfig },
+  { responsive, ...optimizedConfig },
+  nextConfig,
   isServer,
   detectedLoaders
 ) => {
@@ -20,7 +22,7 @@ const getResponsiveLoaderOptions = (
   }
 
   return {
-    ...getFileLoaderOptions(nextConfig, isServer),
+    ...getFileLoaderOptions(optimizedConfig, nextConfig, isServer),
     name: '[name]-[width]-[hash].[ext]',
     ...(responsive || {}),
     adapter,
@@ -31,6 +33,7 @@ const getResponsiveLoaderOptions = (
  * Apply the responsive loader to the webpack configuration
  *
  * @param {object} webpackConfig - webpack configuration
+ * @param {object} optimizedConfig - optimized configuration
  * @param {object} nextConfig - next.js configuration
  * @param {boolean} isServer - if the build is for the server
  * @param {object} detectedLoaders - all detected and installed loaders
@@ -38,6 +41,7 @@ const getResponsiveLoaderOptions = (
  */
 const applyResponsiveLoader = (
   webpackConfig,
+  optimizedConfig,
   nextConfig,
   isServer,
   detectedLoaders
@@ -49,6 +53,7 @@ const applyResponsiveLoader = (
         use: {
           loader: 'responsive-loader',
           options: getResponsiveLoaderOptions(
+            optimizedConfig,
             nextConfig,
             isServer,
             detectedLoaders

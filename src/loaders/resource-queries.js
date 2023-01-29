@@ -112,6 +112,7 @@ const queries = [
 /**
  * Returns all common resource queries for the given optimization loader
  *
+ * @param {object} optimizedConfig - optimized configuration
  * @param {object} nextConfig - next.js configuration object
  * @param {boolean} isServer - if the current build is for a server
  * @param {string} optimizerLoaderName - name of the loader used to optimize the images
@@ -119,6 +120,7 @@ const queries = [
  * @returns {array}
  */
 const getResourceQueries = (
+  optimizedConfig,
   nextConfig,
   isServer,
   optimizerLoaderName,
@@ -126,16 +128,21 @@ const getResourceQueries = (
   detectLoaders
 ) => {
   const loaderOptions = {
-    'url-loader': getUrlLoaderOptions(nextConfig, isServer),
-    'file-loader': getFileLoaderOptions(nextConfig, isServer),
-    [getFileLoaderPath()]: getFileLoaderOptions(nextConfig, isServer),
-    'lqip-loader': getLqipLoaderOptions(nextConfig, isServer),
+    'url-loader': getUrlLoaderOptions(optimizedConfig, nextConfig, isServer),
+    'file-loader': getFileLoaderOptions(optimizedConfig, nextConfig, isServer),
+    [getFileLoaderPath()]: getFileLoaderOptions(
+      optimizedConfig,
+      nextConfig,
+      isServer
+    ),
+    'lqip-loader': getLqipLoaderOptions(optimizedConfig, nextConfig, isServer),
     'responsive-loader': getResponsiveLoaderOptions(
+      optimizedConfig,
       nextConfig,
       isServer,
       detectLoaders
     ),
-    'image-trace-loader': getImageTraceLoaderOptions(nextConfig),
+    'image-trace-loader': getImageTraceLoaderOptions(optimizedConfig),
   }
 
   return queries.map((queryConfig) => {
