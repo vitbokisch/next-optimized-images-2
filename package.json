@@ -1,6 +1,6 @@
 {
   "name": "next-optimized-images-2",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Automatically optimize images used in Next.js projects (jpeg, png, gif, svg).",
   "type": "module",
   "main": "./src/index.js",
@@ -54,6 +54,7 @@
     "next": "*"
   },
   "devDependencies": {
+    "@vitus-labs/rocketstyle": "0.65",
     "@vitus-labs/tools-lint": "^0.40.0",
     "@vitus-labs/tools-typescript": "^0.40.0",
     "jest": "^29.3.1",
